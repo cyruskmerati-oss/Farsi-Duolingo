@@ -10,19 +10,24 @@ recorded pronunciation for every letter and word.
 
 | | |
 | --- | --- |
-| `index.html` | The whole app. One file, already built. |
+| `index.html` | What the live site serves. One file, already built. |
+| `source/` | The source project the app is being rebuilt into. |
 | `*.m4a` | 372 pronunciation clips. |
 | `*.mp3` | Two background music tracks, played in a loop. |
-| `AGENTS.md` | How to edit this safely. Read it before changing `index.html`. |
+| `AGENTS.md` | How to edit this safely. Read it first. |
 
-The app has no build step. The file in the repo is the file the browser runs,
-and **GitHub Pages republishes the site a couple of minutes after any change
-lands on `main`.**
+**GitHub Pages republishes the site a couple of minutes after any change lands
+on `main`.**
+
+Note that `index.html` and `source/` are **not linked yet**: the shipped file
+is still the original hand-edited build, and nothing has been published from
+`source/`. `AGENTS.md` explains which one to change and why it matters.
 
 ## Making a change
 
-The app is written as one large minified file, so it is not meant to be edited
-by hand line by line. Ask a coding agent (Codex or Claude Code) to make the
+Most changes are content, and content lives in `source/src/data/` as readable,
+commented files: the letters and their example words, the quizzes, which
+recording each word uses. Ask a coding agent (Codex or Claude Code) to make the
 change and let it follow `AGENTS.md`, which records the conventions and the
 traps.
 
