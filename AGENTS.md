@@ -14,25 +14,20 @@ letter and word.
 - **Every push to `main` goes live within a couple of minutes.** There is no
   staging site.
 
-## Read this first: there are two trees
+## Read this first: index.html is generated
 
 ```
-index.html     <- what GitHub Pages actually serves. A 301 KB minified build.
-source/        <- the real source project. Builds back to that same file.
+source/        <- the source project. Edit this.
+index.html     <- build output, served by GitHub Pages. Never edit it.
 ```
 
-**They are not linked yet.** The shipped `index.html` is still the original
-hand-edited bundle; nothing has been generated from `source/` and published.
-Switching the deploy over is a deliberate step that has not been taken.
+`index.html` at the repo root is produced by `npm run deploy` from `source/`.
+**Do not edit it by hand.** Any hand edit is wiped by the next deploy, without
+a warning, and the loss is easy to miss because the file is minified.
 
-So the rule, until that switch happens:
-
-> **Make a change in one tree, never both.** Prefer `source/`, then publish
-> with `npm run deploy`. If you hand-edit `index.html` instead, `source/`
-> silently falls behind and the next deploy from source will revert you.
-
-If you are unsure which applies, ask rather than guessing. Reverting a
-clobbered deploy is much more work than a question.
+Its diff is unreadable by design: a one line change in `source/src/data` can
+rewrite most of the file. That is expected. Review the change in `source/`,
+not in the built output.
 
 ## Working in `source/` (preferred)
 
@@ -82,24 +77,20 @@ while it is rewritten screen by screen. It is not a dead copy:
 real component, pointing `App.jsx` at it, and deleting what stops being
 referenced. The build stays green throughout.
 
-## If you must edit `index.html` directly
+## Rebuilding and publishing
 
-Only when there is a specific reason not to go through `source/`.
+```bash
+cd source
+npm run build    # -> source/dist/index.html
+npm run deploy   # copies that over the repo root index.html
+```
 
-It is a minified build: 191 lines, one of them 153,000 characters.
+`deploy` is separate from `build` because the root `index.html` is what Pages
+serves, so overwriting it is a publish. Commit the regenerated `index.html`
+together with the source change that produced it, never on its own.
 
-- **Never reformat, prettify or regenerate it.** A reformat produces an
-  unreviewable diff and throws away everything recorded here.
-- **Never replace it with a file generated from a chat.** That silently
-  discards the iOS audio fixes, the quiz data and the navigation work.
-- Make targeted edits: match an exact string, confirm it appears **exactly
-  once**, replace just that string.
-- When inserting into an array, bracket-count to find its real end. Matching
-  `]}` finds the end of the first element, not the array, and quietly writes
-  your change into the wrong place.
-
-Data markers inside the bundle: `Tc=[` letters, `mm=[` quizzes, `n3={` letter
-audio by name, `cm={` letter audio by character, `dm={` word audio.
+If you ever need the pre-rebuild hand-edited bundle, it is in git history at
+`32fa595`.
 
 ## Audio
 
@@ -169,9 +160,9 @@ a regression you introduced.
 
 ## Checklist before pushing
 
-- [ ] Changed one tree, not both
-- [ ] Did not reformat `index.html` or `legacy/screens.js`
-- [ ] Each replaced string matched exactly once
+- [ ] Changed `source/`, not the generated `index.html`
+- [ ] Did not reformat `legacy/screens.js`
+- [ ] Rebuilt and committed `index.html` with the source change
 - [ ] Clip check reports no new breaks
 - [ ] Opened the app and clicked through what changed
 - [ ] Commit message says what changed and why
@@ -179,6 +170,6 @@ a regression you introduced.
 ## Things people have broken before
 
 - Uploading a freshly generated `index.html`, wiping months of fixes.
-- Inserting into the wrong array by matching `]}` instead of bracket counting.
+- Hand-editing the generated `index.html`, which the next deploy reverts.
 - Building clip URLs from composed Unicode, so macron clips 404 silently.
 - Deleting audio files the app still references.

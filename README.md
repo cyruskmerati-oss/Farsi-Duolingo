@@ -10,8 +10,8 @@ recorded pronunciation for every letter and word.
 
 | | |
 | --- | --- |
-| `index.html` | What the live site serves. One file, already built. |
-| `source/` | The source project the app is being rebuilt into. |
+| `index.html` | What the live site serves. Generated from `source/`. |
+| `source/` | The source project. This is what you edit. |
 | `*.m4a` | 372 pronunciation clips. |
 | `*.mp3` | Two background music tracks, played in a loop. |
 | `AGENTS.md` | How to edit this safely. Read it first. |
@@ -19,9 +19,8 @@ recorded pronunciation for every letter and word.
 **GitHub Pages republishes the site a couple of minutes after any change lands
 on `main`.**
 
-Note that `index.html` and `source/` are **not linked yet**: the shipped file
-is still the original hand-edited build, and nothing has been published from
-`source/`. `AGENTS.md` explains which one to change and why it matters.
+`index.html` is **generated** from `source/` by `npm run deploy`. Do not edit
+it by hand; the next deploy overwrites it. `AGENTS.md` has the details.
 
 ## Making a change
 
