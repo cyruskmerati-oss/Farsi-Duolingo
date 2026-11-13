@@ -1,0 +1,28 @@
+/* Lifted verbatim from the runtime-injected stylesheet in the original
+   bundle. Animation names are referenced by inline styles throughout. */
+
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+      body{margin:0;font-family:'Nunito',sans-serif;overflow-x:hidden;}
+      @keyframes fadeUp   {from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+      @keyframes fadeDown {from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+      @keyframes pop      {0%{transform:scale(.8);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+      @keyframes floatA   {0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+      @keyframes sunSpin   {from{transform:rotate(0deg)} to{transform:rotate(360deg)}}
+      @keyframes floatB   {0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+      @keyframes pulse    {0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+      @keyframes tick     {0%{transform:scale(1)}50%{transform:scale(1.28)}100%{transform:scale(1)}}
+      @keyframes wobble   {0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+      @keyframes correct  {0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+      @keyframes dropIn   {0%{transform:translateY(-30px) scale(.5);opacity:0}70%{transform:translateY(4px) scale(1.1)}100%{transform:translateY(0) scale(1);opacity:1}}
+      @keyframes slotFill {0%{transform:scale(.3);opacity:0}60%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
+      @keyframes drawPath  {from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+      @keyframes dotPop    {from{opacity:0}to{opacity:1}}
+      @keyframes revealWord{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0%)}}
+      @keyframes penCursor  {from{left:90%}to{left:4%}}
+      .cloud-a{animation:floatA 6s ease-in-out infinite;}
+      .cloud-b{animation:floatB 9s ease-in-out infinite;}
+      .lift:hover{transform:translateY(-5px)!important;box-shadow:0 18px 40px rgba(100,160,230,.25)!important;}
+      .bb:hover{transform:scale(1.04) translateY(-2px);filter:brightness(1.08);}
+      button{cursor:pointer;font-family:inherit;}
+      ::-webkit-scrollbar{width:0;}
+    
