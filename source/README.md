@@ -25,7 +25,8 @@ works in dev without copying 372 files around.
 | Stylesheet | `src/styles.css` — real file |
 | App shell, music player, volume panel | `src/App.jsx` — rewritten |
 | Home screen | `src/components/Home.jsx` — rewritten |
-| Lessons, Word Writing, Quiz, Games, Alphabet, background | `src/legacy/screens.js` — still compiled |
+| Letter detail screen | `src/components/LetterDetail.jsx` — rewritten |
+| Lesson list, level grid, quiz, writing, games, background | `src/legacy/screens.js` — still compiled |
 
 `src/legacy/screens.js` is the original compiled code, lifted across so the
 whole app runs from source today. It is **not** a dead copy:
@@ -36,8 +37,24 @@ whole app runs from source today. It is **not** a dead copy:
   duck/restore implementation
 
 Migrate by lifting one screen out of `src/legacy/screens.js` into a real
-component, pointing `App.jsx` at it, and deleting what stops being referenced.
-The build stays green throughout.
+component and deleting what stops being referenced. The build stays green
+throughout.
+
+`src/components/LetterDetail.jsx` is the worked example. It was the minified
+`gm` inside `screens.js`; the steps were:
+
+1. Write the component properly in `src/components/`, taking the same props
+   the minified version took (`letterData`, `onBack`, `onNext`).
+2. Delete the `function gm(...)` from `screens.js`.
+3. Add `import gm from '../components/LetterDetail.jsx'` there, so the screens
+   that render `gm` pick up the new one with no other change.
+4. Rebuild and click through the screen, including anything unusual it
+   handles. For that one it was the خوا cluster highlight and the shadda rows,
+   which are the parts a rewrite would quietly get wrong.
+
+Good next candidates, in order: the level grid (`xm`), the lesson list (`ym`),
+then the quiz (`pm`). Leave the six games for last; they are the largest and
+the least likely to need editing.
 
 ## Editing content
 
