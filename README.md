@@ -37,6 +37,43 @@ After a change is merged, open the live link and check the part you changed.
 If a pronunciation stops playing, that is the most common kind of breakage,
 and `AGENTS.md` has a script that checks every clip at once.
 
+## Asking Codex for a change
+
+Paste this into Codex, fill in the last line, and send it. Keep the whole
+thing: the parts above the last line are what stop it going wrong.
+
+```text
+Repo: cyruskmerati-oss/Farsi-Duolingo
+
+Read AGENTS.md at the repo root first and follow it.
+
+Things to know before you start:
+- index.html at the repo root is GENERATED. Never edit it by hand.
+- The source lives in source/. Content lives in source/src/data/ as
+  readable files: letters.js (letters, forms, example words),
+  checkpoints.js (the quizzes), audio.js (which recording each one uses).
+- source/src/legacy/screens.js is deliberately minified. Do not reformat
+  or prettify it. Make targeted edits only.
+- If you touch audio filenames, read the comment at the top of
+  source/src/data/audio.js first. Some names store their macrons
+  decomposed and 404 silently if you "normalise" them.
+
+After making the change:
+1. Run: cd source && npm install && npm run deploy
+   That rebuilds the app and copies the result over the root index.html.
+2. Commit the source change and the regenerated index.html together.
+3. If you cannot run npm in your environment, say so plainly in your
+   summary and commit only the source change. Do not guess at an
+   index.html by hand, and do not leave it half updated.
+
+Open a pull request. Do not push straight to main.
+
+In your summary, tell me which files you changed and what I should click
+on the live site to check it worked.
+
+What I want changed:
+```
+
 ## Known gap
 
 زیبا (zibā) has no recording, so that one word is silent. Every other
