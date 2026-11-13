@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import Home from './components/Home.jsx'
-import Sky from './components/Sky.jsx'
+import {
+  Alphabet,
+  Games,
+  LessonMode,
+  QuizSection,
+  SkyScene,
+  WordWriting,
+} from './legacy/screens.js'
 import { baseVolume, initGraph, registerMusic, setBaseVolume, setVolume } from './audio/engine.js'
 import { roundIcon } from './ui/tokens.js'
 
@@ -157,7 +164,7 @@ export default function App() {
       )}
 
       <div style={{ position: 'relative', minHeight: '100vh' }}>
-        <Sky />
+        <SkyScene />
         <div
           style={{
             position: 'relative',
@@ -169,24 +176,13 @@ export default function App() {
           }}
         >
           {screen === 'home' && <Home setScreen={setScreen} />}
-          {screen !== 'home' && <NotPortedYet name={screen} onBack={() => setScreen('home')} />}
+          {screen === 'lessons' && <LessonMode onBack={() => setScreen('home')} />}
+          {screen === 'writing' && <WordWriting onBack={() => setScreen('home')} />}
+          {screen === 'quiz' && <QuizSection onBack={() => setScreen('home')} />}
+          {screen === 'games' && <Games onBack={() => setScreen('home')} />}
+          {screen === 'alphabet' && <Alphabet onBack={() => setScreen('home')} />}
         </div>
       </div>
     </>
-  )
-}
-
-// Placeholder while the remaining screens are ported out of the old bundle.
-function NotPortedYet({ name, onBack }) {
-  return (
-    <div style={{ padding: 40, textAlign: 'center', color: '#1a3a5c' }}>
-      <h2 style={{ fontWeight: 900 }}>“{name}” not ported yet</h2>
-      <p style={{ color: '#5a8ab5', marginTop: 10 }}>
-        This screen still lives in the original bundle. The shipped app is unchanged.
-      </p>
-      <button onClick={onBack} style={{ marginTop: 18 }}>
-        ← Back
-      </button>
-    </div>
   )
 }
