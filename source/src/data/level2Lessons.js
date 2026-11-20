@@ -32,7 +32,7 @@ export const levelTwoLessons = [
   },
   {
     id: 2,
-    title: 'My Family',
+    title: 'Family',
     fa: 'خانوادهٔ من',
     emoji: '👨‍👩‍👧',
     words: [
