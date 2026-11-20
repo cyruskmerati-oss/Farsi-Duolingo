@@ -1,4 +1,4 @@
-// Level metadata. Only level 1 has content; the rest are placeholders.
+// Level metadata for the lesson picker.
 export const levelRanges = {
   "1": [
     0,
@@ -32,7 +32,7 @@ export const levelColors = {
 
 export const levelLabels = {
   "1": "Alefba",
-  "2": "Coming Soon",
+  "2": "Words & Sentences",
   "3": "Coming Soon",
   "4": "Coming Soon",
   "5": "Coming Soon"
